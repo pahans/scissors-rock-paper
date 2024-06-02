@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface BetOptionProps {
@@ -17,20 +16,20 @@ export const BetOption: React.FC<BetOptionProps> = ({
   return (
     <button
       className={cn(
-        "p-4 m-2 rounded cursor-pointer border-4 border-transparent font-bold w-full flex-col items-center space-y-4",
+        "m-2 w-full cursor-pointer flex-col items-center space-y-4 rounded border-4 border-transparent p-4 font-bold",
         className,
         {
           "border-gold-500": betAmount > 0,
-        }
+        },
       )}
       onClick={() => onSelect(choice)}
     >
       <div
         className={cn(
-          "flex items-center justify-center mt-2 border-4 border-blue-400 rounded-full w-20 h-20",
+          "mt-2 flex h-20 w-20 items-center justify-center rounded-full border-4 border-blue-400",
           {
             invisible: betAmount === 0,
-          }
+          },
         )}
       >
         <span className="text-center text-xl">{betAmount}</span>

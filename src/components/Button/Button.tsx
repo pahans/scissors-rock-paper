@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
@@ -8,7 +6,7 @@ export interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({ onClick, children }) => {
   return (
     <button
-      className="mt-6 hover:opacity-70 p-4 bg-black text-gold-500 border-gold-500 border-2 px-8 text-lg rounded-full"
+      className="mt-6 rounded-full border-2 border-gold-500 bg-black p-4 px-8 text-lg text-gold-500 hover:opacity-70"
       onClick={onClick}
     >
       {children}

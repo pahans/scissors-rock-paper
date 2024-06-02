@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
 import BetOption from "./BetOption";
 
 describe("BetOption Component", () => {
@@ -11,7 +12,7 @@ describe("BetOption Component", () => {
 
   it("applies the correct class name based on props", () => {
     render(
-      <BetOption choice="rock" onSelect={vi.fn()} className="bg-blue-500" />
+      <BetOption choice="rock" onSelect={vi.fn()} className="bg-blue-500" />,
     );
     const buttonElement = screen.getByRole("button");
     expect(buttonElement).toHaveClass("bg-blue-500");
