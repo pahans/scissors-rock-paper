@@ -1,1 +1,1 @@
-export { BetOption, type BetOptionProps } from "./BetOption";
+export * from "./BetOption";

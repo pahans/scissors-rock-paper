@@ -1,1 +1,1 @@
-export { Balance, type BalanceProps } from "./Balance";
+export * from "./Balance";
