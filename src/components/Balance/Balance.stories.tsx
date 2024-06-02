@@ -1,8 +1,8 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { Balance, BalanceProps } from "./Balance";
+import { Balance, BalanceProps } from ".";
 
 export default {
-  title: "Example/Balance",
+  title: "Components/Balance",
   component: Balance,
 } as Meta;
 
