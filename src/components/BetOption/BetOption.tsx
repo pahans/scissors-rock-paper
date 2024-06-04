@@ -1,40 +1,38 @@
-import { cn } from "@/lib/utils";
+import * as React from "react";
+
+import { cn } from "@/utils";
+
+import BetAmount from "./BetAmount";
 
 export interface BetOptionProps {
   choice: string;
   betAmount?: number;
   onSelect: (choice: string) => void;
   className?: string;
+  disabled?: boolean;
 }
 
 export const BetOption: React.FC<BetOptionProps> = ({
   choice,
   onSelect,
   className,
+  disabled = false,
   betAmount = 0,
 }) => {
   return (
     <button
       className={cn(
-        "m-2 w-full cursor-pointer flex-col items-center space-y-4 rounded border-4 border-transparent p-4 font-bold",
+        "p-4 rounded-lg cursor-pointer ring-2 ring-transparent font-bold w-full flex flex-col justify-center items-center space-y-4 disabled:cursor-not-allowed",
         className,
         {
-          "border-gold-500": betAmount > 0,
+          "ring-[6px]": betAmount > 0,
         },
       )}
+      disabled={disabled}
       onClick={() => onSelect(choice)}
     >
-      <div
-        className={cn(
-          "mt-2 flex h-20 w-20 items-center justify-center rounded-full border-4 border-blue-400",
-          {
-            invisible: betAmount === 0,
-          },
-        )}
-      >
-        <span className="text-center text-xl">{betAmount}</span>
-      </div>
-      <div className="text-center text-lg">{choice.toUpperCase()}</div>
+      <BetAmount betAmount={betAmount} />
+      <span className="text-3xl">{choice.toUpperCase()}</span>
     </button>
   );
 };

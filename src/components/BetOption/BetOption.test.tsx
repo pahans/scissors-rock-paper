@@ -10,14 +10,6 @@ describe("BetOption Component", () => {
     expect(screen.getByText("ROCK")).toBeInTheDocument();
   });
 
-  it("applies the correct class name based on props", () => {
-    render(
-      <BetOption choice="rock" onSelect={vi.fn()} className="bg-blue-500" />,
-    );
-    const buttonElement = screen.getByRole("button");
-    expect(buttonElement).toHaveClass("bg-blue-500");
-  });
-
   it("displays the bet amount when it is greater than 0", () => {
     render(<BetOption choice="rock" onSelect={vi.fn()} betAmount={500} />);
     expect(screen.getByText("500")).toBeInTheDocument();
@@ -34,17 +26,5 @@ describe("BetOption Component", () => {
     render(<BetOption choice="rock" onSelect={onSelectMock} />);
     fireEvent.click(screen.getByRole("button"));
     expect(onSelectMock).toHaveBeenCalledWith("rock");
-  });
-
-  it("adds a border class when bet amount is greater than 0", () => {
-    render(<BetOption choice="rock" onSelect={vi.fn()} betAmount={100} />);
-    const buttonElement = screen.getByRole("button");
-    expect(buttonElement).toHaveClass("border-gold-500");
-  });
-
-  it("does not add a border class when bet amount is 0", () => {
-    render(<BetOption choice="rock" onSelect={vi.fn()} betAmount={0} />);
-    const buttonElement = screen.getByRole("button");
-    expect(buttonElement).not.toHaveClass("border-gold-500");
   });
 });

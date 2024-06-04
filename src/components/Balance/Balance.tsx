@@ -1,3 +1,7 @@
+import * as React from "react";
+
+import { Stat } from "./Stat";
+
 export interface BalanceProps {
   balance: number;
   bet: number;
@@ -5,11 +9,19 @@ export interface BalanceProps {
 }
 
 export const Balance: React.FC<BalanceProps> = ({ balance, bet, win }) => {
+  const stats = [
+    { label: "BALANCE", value: balance },
+    { label: "BET", value: bet },
+    { label: "WIN", value: win },
+  ];
+
   return (
-    <div className="flex justify-between bg-gray-800 p-4 text-gold-500">
-      <span>BALANCE: {balance}</span>
-      <span>BET: {bet}</span>
-      <span>WIN: {win}</span>
+    <div className="bg-gray-900 p-1">
+      <div className="container mx-auto flex max-w-lg justify-between px-4">
+        {stats.map(({ label, value }) => (
+          <Stat key={label} label={label} value={value} />
+        ))}
+      </div>
     </div>
   );
 };

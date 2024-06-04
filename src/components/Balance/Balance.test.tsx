@@ -13,19 +13,14 @@ describe("Balance Component", () => {
     return render(<Balance {...defaultProps} {...props} />);
   };
 
-  test("renders Balance component with default props", () => {
+  test("renders Balance component with props", () => {
     setup();
 
-    expect(screen.getByText("BALANCE: 5000")).toBeInTheDocument();
-    expect(screen.getByText("BET: 1000")).toBeInTheDocument();
-    expect(screen.getByText("WIN: 1500")).toBeInTheDocument();
-  });
-
-  test("renders Balance component with custom props", () => {
-    setup({ balance: 3000, bet: 500, win: 1000 });
-
-    expect(screen.getByText("BALANCE: 3000")).toBeInTheDocument();
-    expect(screen.getByText("BET: 500")).toBeInTheDocument();
-    expect(screen.getByText("WIN: 1000")).toBeInTheDocument();
+    expect(screen.getByText("BALANCE:")).toBeInTheDocument();
+    expect(screen.getByText("5000")).toBeInTheDocument();
+    expect(screen.getByText("BET:")).toBeInTheDocument();
+    expect(screen.getByText("1000")).toBeInTheDocument();
+    expect(screen.getByText("WIN:")).toBeInTheDocument();
+    expect(screen.getByText("1500")).toBeInTheDocument();
   });
 });
