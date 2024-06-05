@@ -1,12 +1,4 @@
-export type GameChoiceConfig = Record<
-  GameChoice,
-  {
-    label: string;
-    beats: string[];
-    colorClassName: string;
-  }
->;
-export type GameChoice = "rock" | "paper" | "scissors";
+import { GameChoiceConfig } from "@/types/definitions";
 
 export const CALCULATE_RESULT_DELAY = 3000;
 

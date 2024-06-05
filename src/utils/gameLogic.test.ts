@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { GameChoice, gameChoicesConfig } from "@/config/gameConfig";
+import { gameChoicesConfig } from "@/config/gameConfig";
+import { GameChoice } from "@/types/definitions";
 
 import {
   calculateResult,

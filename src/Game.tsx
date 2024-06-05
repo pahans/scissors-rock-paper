@@ -1,9 +1,11 @@
 import { Balance } from "@/components/Balance";
 import { BetOption } from "@/components/BetOption";
 import { Button } from "@/components/Button";
-import { GameChoice, gameChoicesConfig } from "@/config/gameConfig";
+import { GameStatus } from "@/components/GameStatus";
+import { gameChoicesConfig } from "@/config/gameConfig";
 import { useGameContext } from "@/context/GameContext";
 import { useGameActions } from "@/hooks/useGameActions";
+import { GameChoice } from "@/types/definitions";
 
 function Game() {
   const { state } = useGameContext();
@@ -14,8 +16,8 @@ function Game() {
     selectedChoices,
     errorMessage,
     gameStage,
-    computerChoice,
     winningChoice,
+    winAmount,
   } = state;
 
   const totalBet = Object.values(selectedChoices).reduce(
@@ -27,22 +29,17 @@ function Game() {
     <div className="flex min-h-screen w-full flex-col bg-gradient-to-b from-gray-600 to-gray-900">
       <Balance balance={balance} bet={totalBet} win={win} />
       <div className="mb-4 grid h-60 items-center text-center text-white">
-        {gameStage === "betting" && (
-          <h3 className="self-end text-2xl font-semibold uppercase text-gold-500">
-            Pick Your Positions
-          </h3>
+        {errorMessage && (
+          <h3 className="text-xl font-semibold text-red-400">{errorMessage}</h3>
         )}
-        {gameStage === "playing" && (
-          <h3 className="text-3xl">
-            {Object.keys(selectedChoices).join(",")} vs {computerChoice}
-          </h3>
-        )}
-        {errorMessage && <h3 className="text-xl">{errorMessage}</h3>}
-        {gameStage === "showWinner" && winningChoice && (
-          <>
-            <h3 className="text-xl uppercase">{winningChoice} won</h3>
-          </>
-        )}
+        <GameStatus
+          gameStage={gameStage}
+          selectedChoices={selectedChoices}
+          winningChoice={winningChoice}
+          winningAmount={winAmount}
+          outcome={state.outcome}
+          computerChoice={state.computerChoice}
+        />
       </div>
 
       <div className="container mx-auto max-w-2xl px-4">
@@ -61,7 +58,10 @@ function Game() {
 
         <div className="my-4 flex w-full items-center justify-center space-x-4">
           {(gameStage === "betting" || gameStage === "playing") && (
-            <Button onClick={startGame} disabled={gameStage === "playing"}>
+            <Button
+              onClick={startGame}
+              disabled={gameStage === "playing" || totalBet === 0}
+            >
               PLAY
             </Button>
           )}

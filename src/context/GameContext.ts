@@ -1,24 +1,8 @@
 import { Dispatch, createContext, useContext } from "react";
 
-import {
-  GameChoice,
-  betSize,
-  startingBalance,
-  winRates,
-} from "@/config/gameConfig";
+import { betSize, startingBalance, winRates } from "@/config/gameConfig";
+import { GameChoice, GameState } from "@/types/definitions";
 import { calculateResult, getRandomChoice } from "@/utils/gameLogic";
-
-type GameStage = "betting" | "playing" | "showWinner";
-
-interface GameState {
-  balance: number;
-  win: number;
-  selectedChoices: { [key in GameChoice]?: number };
-  computerChoice: GameChoice | null;
-  gameStage: GameStage;
-  winningChoice: GameChoice | null;
-  errorMessage: string | null;
-}
 
 export const initialState: GameState = {
   balance: startingBalance,
@@ -28,6 +12,8 @@ export const initialState: GameState = {
   errorMessage: null,
   gameStage: "betting",
   winningChoice: null,
+  winAmount: 0,
+  outcome: null,
 };
 
 type Action =
@@ -48,6 +34,21 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       ) {
         return state;
       }
+
+      const newSelectedChoices = {
+        ...state.selectedChoices,
+        [choice]: (state.selectedChoices[choice] || 0) + betSize,
+      };
+      const totalBet = Object.values(newSelectedChoices).reduce(
+        (sum, amount) => sum + (amount || 0),
+        0,
+      );
+      if (state.balance < totalBet) {
+        return {
+          ...state,
+          errorMessage: "Insufficient balance.",
+        };
+      }
       // Deduct bet from balance and add to selected choices
       return {
         ...state,
@@ -64,16 +65,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
           ...state,
         };
       }
-      const totalBet = Object.values(state.selectedChoices).reduce(
-        (sum, amount) => sum + (amount || 0),
-        0,
-      );
-      if (state.balance < totalBet) {
-        return {
-          ...state,
-          errorMessage: "Insufficient balance.",
-        };
-      }
+
       const computerChoice = getRandomChoice();
       return {
         ...state,
@@ -82,13 +74,22 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       };
     }
     case "CALCULATE_RESULT": {
-      const { winAmount, errorMessage, winningChoice } = calculateResult(
-        state.selectedChoices,
-        state.computerChoice as GameChoice,
-      );
+      const { winAmount, errorMessage, winningChoice, outcome } =
+        calculateResult(
+          state.selectedChoices,
+          state.computerChoice as GameChoice,
+        );
+      console.log({
+        winAmount,
+        errorMessage,
+        winningChoice,
+        outcome,
+      });
       return {
         ...state,
         win: winAmount,
+        outcome,
+        winAmount,
         balance: state.balance + winAmount,
         errorMessage,
         gameStage: "showWinner",

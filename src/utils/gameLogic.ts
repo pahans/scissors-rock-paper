@@ -1,12 +1,11 @@
-import { GameChoice, gameChoicesConfig, winRates } from "@/config/gameConfig";
+import { gameChoicesConfig, winRates } from "@/config/gameConfig";
+import { GameChoice, Outcome } from "@/types/definitions";
 
 export const getRandomChoice = (): GameChoice => {
   const choices = Object.keys(gameChoicesConfig) as GameChoice[];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 };
-
-type Outcome = "tie" | "win" | "loss";
 
 interface WinningChoiceResult {
   outcome: Outcome;
@@ -38,7 +37,7 @@ export const getWinningChoice = (
   };
 };
 
-interface CalculateResult {
+interface Result {
   winAmount: number;
   errorMessage: string | null;
   winningChoice: GameChoice | null;
@@ -48,7 +47,7 @@ interface CalculateResult {
 export const calculateResult = (
   playerChoices: { [key in GameChoice]?: number },
   computerChoice: GameChoice,
-): CalculateResult => {
+): Result => {
   const computerConfig = gameChoicesConfig[computerChoice];
   if (!computerConfig) {
     return {
