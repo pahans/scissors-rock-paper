@@ -2,9 +2,9 @@ import { Balance } from "@/components/Balance";
 import { BetOption } from "@/components/BetOption";
 import { Button } from "@/components/Button";
 import { GameStatus } from "@/components/GameStatus";
-import { gameChoicesConfig } from "@/config/gameConfig";
+import { gameChoicesConfig } from "@/config/game-config";
 import { useGameContext } from "@/context/GameContext";
-import { useGameActions } from "@/hooks/useGameActions";
+import { useGameActions } from "@/hooks/use-game-actions";
 import { GameChoice } from "@/types/definitions";
 
 function Game() {

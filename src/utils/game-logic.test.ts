@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { gameChoicesConfig } from "@/config/gameConfig";
+import { gameChoicesConfig } from "@/config/game-config";
 import { GameChoice } from "@/types/definitions";
 
 import {
   calculateResult,
   getRandomChoice,
   getWinningChoice,
-} from "./gameLogic";
+} from "./game-logic";
 
 describe("Game Logic", () => {
   describe("getRandomChoice", () => {

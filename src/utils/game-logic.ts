@@ -1,4 +1,4 @@
-import { gameChoicesConfig, winRates } from "@/config/gameConfig";
+import { gameChoicesConfig, winRates } from "@/config/game-config";
 import { GameChoice, Outcome } from "@/types/definitions";
 
 export const getRandomChoice = (): GameChoice => {

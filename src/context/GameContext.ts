@@ -1,8 +1,8 @@
 import { Dispatch, createContext, useContext } from "react";
 
-import { betSize, startingBalance, winRates } from "@/config/gameConfig";
+import { betSize, startingBalance, winRates } from "@/config/game-config";
 import { GameChoice, GameState } from "@/types/definitions";
-import { calculateResult, getRandomChoice } from "@/utils/gameLogic";
+import { calculateResult, getRandomChoice } from "@/utils/game-logic";
 
 export const initialState: GameState = {
   balance: startingBalance,

@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 
-import { CALCULATE_RESULT_DELAY, GameChoice } from "@/config/gameConfig";
+import { CALCULATE_RESULT_DELAY } from "@/config/game-config";
 import { useGameContext } from "@/context/GameContext";
+import { GameChoice } from "@/types/definitions";
 
 export const useGameActions = () => {
   const { dispatch } = useGameContext();
