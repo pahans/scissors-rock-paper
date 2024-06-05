@@ -4,7 +4,7 @@
 import path from "path";
 
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +13,13 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./vitest-setup"],
+    coverage: {
+      exclude: [
+        "**/*.stories.@(js|jsx|mjs|ts|tsx)",
+        "**/*.config.@(js|jsx|mjs|ts|tsx)",
+        ...coverageConfigDefaults.exclude,
+      ],
+    },
   },
   resolve: {
     alias: {
