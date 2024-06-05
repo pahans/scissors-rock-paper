@@ -3,9 +3,10 @@ import { BetOption } from "@/components/BetOption";
 import { Button } from "@/components/Button";
 import { GameStatus } from "@/components/GameStatus";
 import { gameChoicesConfig } from "@/config/game-config";
-import { useGameContext } from "@/context/GameContext";
 import { useGameActions } from "@/hooks/use-game-actions";
 import { GameChoice } from "@/types/definitions";
+
+import { useGameContext } from "./hooks/use-game-context";
 
 function Game() {
   const { state } = useGameContext();

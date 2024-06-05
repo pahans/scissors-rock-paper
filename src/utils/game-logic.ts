@@ -44,60 +44,33 @@ interface Result {
   outcome: Outcome | null;
 }
 
+const returnErrorResult = (errorMessage: string): Result => ({
+  winAmount: 0,
+  errorMessage,
+  winningChoice: null,
+  outcome: null,
+});
+
 export const calculateResult = (
   playerChoices: { [key in GameChoice]?: number },
   computerChoice: GameChoice,
 ): Result => {
   const computerConfig = gameChoicesConfig[computerChoice];
   if (!computerConfig) {
-    return {
-      winAmount: 0,
-      errorMessage: "Invalid computer choice",
-      winningChoice: null,
-      outcome: null,
-    };
+    return returnErrorResult("Invalid computer choice");
   }
 
   const playerChoiceNames = Object.keys(playerChoices) as GameChoice[];
   const playerChoicesCount = playerChoiceNames.length;
 
-  if (playerChoicesCount === 1) {
-    const playerChoice = playerChoiceNames[0];
-    const { outcome, winningChoice } = getWinningChoice(
-      playerChoice,
-      computerChoice,
-    );
-
-    let winAmount = 0;
-    if (outcome === "win") {
-      winAmount = playerChoices[playerChoice]! * winRates[playerChoicesCount];
-    } else if (outcome === "tie") {
-      // Return the bet amount for a tie
-      winAmount = playerChoices[playerChoice]!;
-    }
-
-    return {
-      errorMessage: null,
-      outcome,
-      winAmount,
-      winningChoice,
-    };
-  }
-
   // For now we only support 1 or 2 player choices
   if (playerChoicesCount > 2) {
-    return {
-      winAmount: 0,
-      errorMessage: "Invalid number of player choices",
-      winningChoice: null,
-      outcome: null,
-    };
+    return returnErrorResult("Invalid number of player choices");
   }
 
-  // Handle playerChoicesCount = 2
   let totalWinAmount = 0;
-  let finalOutcome: Outcome = "loss";
-  let finalWinningChoice: GameChoice | null = computerChoice;
+  let finalOutCome: Outcome = "tie";
+  let finalWinningChoice: GameChoice | null = null;
 
   for (const playerChoice of playerChoiceNames) {
     const { outcome, winningChoice } = getWinningChoice(
@@ -106,21 +79,26 @@ export const calculateResult = (
     );
 
     if (outcome === "win") {
+      finalOutCome = "win";
       totalWinAmount +=
-        playerChoices[playerChoice]! * winRates[playerChoicesCount];
-      finalOutcome = outcome;
+        (playerChoices[playerChoice] ?? 0) * winRates[playerChoicesCount];
       finalWinningChoice = winningChoice;
-      break;
-    } else if (outcome === "tie") {
-      finalOutcome = "tie";
-      finalWinningChoice = null;
+    } else if (outcome === "loss" && finalOutCome !== "win") {
+      finalOutCome = "loss";
+      finalWinningChoice = computerChoice;
     }
+  }
+
+  if (finalOutCome == "tie") {
+    // if finalOutCome is a tie(this means it no other bets won or loss), return the amount
+    totalWinAmount = playerChoices[playerChoiceNames[0]] ?? 0;
+    finalWinningChoice = null;
   }
 
   return {
     errorMessage: null,
     winAmount: totalWinAmount,
-    outcome: finalOutcome,
+    outcome: finalOutCome,
     winningChoice: finalWinningChoice,
   };
 };

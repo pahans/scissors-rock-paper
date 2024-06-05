@@ -69,7 +69,18 @@ describe("Game Logic", () => {
       expect(result.winningChoice).toBe("paper");
     });
 
-    it("handles multiple bets with one winning and one tie", () => {
+    it("handles two bets with one loss and one tie", () => {
+      const playerChoices = { rock: 500, paper: 500 };
+      const computerChoice: GameChoice = "paper";
+      const result = calculateResult(playerChoices, computerChoice);
+
+      expect(result.winAmount).toBe(0); // 500 * 3
+      expect(result.errorMessage).toBeNull();
+      expect(result.outcome).toBe("loss");
+      expect(result.winningChoice).toBe("paper");
+    });
+
+    it("handles two bets with one winning and one tie", () => {
       const playerChoices = { rock: 500, paper: 500 };
       const computerChoice: GameChoice = "rock";
       const result = calculateResult(playerChoices, computerChoice);

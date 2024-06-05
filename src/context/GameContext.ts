@@ -1,4 +1,4 @@
-import { Dispatch, createContext, useContext } from "react";
+import { Dispatch, createContext } from "react";
 
 import { betSize, startingBalance, winRates } from "@/config/game-config";
 import { GameChoice, GameState } from "@/types/definitions";
@@ -35,15 +35,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
         return state;
       }
 
-      const newSelectedChoices = {
-        ...state.selectedChoices,
-        [choice]: (state.selectedChoices[choice] || 0) + betSize,
-      };
-      const totalBet = Object.values(newSelectedChoices).reduce(
-        (sum, amount) => sum + (amount || 0),
-        0,
-      );
-      if (state.balance < totalBet) {
+      if (state.balance < betSize) {
         return {
           ...state,
           errorMessage: "Insufficient balance.",
@@ -70,6 +62,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       return {
         ...state,
         computerChoice,
+        errorMessage: null,
         gameStage: "playing",
       };
     }
@@ -79,15 +72,10 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
           state.selectedChoices,
           state.computerChoice as GameChoice,
         );
-      console.log({
-        winAmount,
-        errorMessage,
-        winningChoice,
-        outcome,
-      });
+
       return {
         ...state,
-        win: winAmount,
+        win: outcome === "win" ? state.win + 1 : state.win,
         outcome,
         winAmount,
         balance: state.balance + winAmount,
@@ -100,6 +88,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       return {
         ...initialState,
         balance: state.balance,
+        win: state.win,
       };
     }
     default:
@@ -110,11 +99,3 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
 export const GameContext = createContext<
   { state: GameState; dispatch: Dispatch<Action> } | undefined
 >(undefined);
-
-export const useGameContext = () => {
-  const context = useContext(GameContext);
-  if (context === undefined) {
-    throw new Error("useGameContext must be used within a GameProvider");
-  }
-  return context;
-};
