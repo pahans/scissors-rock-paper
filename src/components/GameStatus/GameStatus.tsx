@@ -6,7 +6,7 @@ import { ShowWinnerStage } from "./ShowWinnerStage";
 
 export interface GameStatusProps {
   gameStage: GameStage;
-  selectedChoices: { [key in GameChoice]?: number };
+  playerBestChoice: GameChoice | null;
   winningChoice: GameChoice | null;
   winningAmount: number;
   outcome: Outcome | null;
@@ -15,20 +15,18 @@ export interface GameStatusProps {
 
 export const GameStatus: React.FC<GameStatusProps> = ({
   gameStage,
-  selectedChoices,
+  playerBestChoice,
   winningChoice,
   computerChoice,
   outcome,
   winningAmount,
 }) => {
-  const selectedChoicesStr = Object.keys(selectedChoices).join(",");
-
   return (
     <div className="text-center">
       {gameStage === "betting" && <BettingStage />}
       {gameStage === "playing" && (
         <PlayingStage
-          selectedChoices={selectedChoicesStr}
+          playerBestChoice={playerBestChoice}
           computerChoice={computerChoice}
         />
       )}

@@ -17,6 +17,9 @@ export default {
           900: "#4D2900",
         },
       },
+      ringWidth: {
+        6: "6px",
+      },
     },
   },
   plugins: [],

@@ -22,4 +22,5 @@ export interface GameState {
   errorMessage: string | null;
   winAmount: number;
   outcome: Outcome | null;
+  playerBestChoice: GameChoice | null;
 }

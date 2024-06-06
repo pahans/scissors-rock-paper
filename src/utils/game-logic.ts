@@ -17,30 +17,20 @@ export const getWinningChoice = (
   computerChoice: GameChoice,
 ): WinningChoiceResult => {
   if (playerChoice === computerChoice) {
-    return {
-      outcome: "tie",
-      winningChoice: null,
-    };
+    return { outcome: "tie", winningChoice: null };
   }
 
   const playerChoiceConfig = gameChoicesConfig[playerChoice];
-  if (playerChoiceConfig.beats.includes(computerChoice)) {
-    return {
-      outcome: "win",
-      winningChoice: playerChoice,
-    };
-  }
-
-  return {
-    outcome: "loss",
-    winningChoice: computerChoice,
-  };
+  return playerChoiceConfig.beats.includes(computerChoice)
+    ? { outcome: "win", winningChoice: playerChoice }
+    : { outcome: "loss", winningChoice: computerChoice };
 };
 
 interface Result {
   winAmount: number;
   errorMessage: string | null;
   winningChoice: GameChoice | null;
+  playerBestChoice: GameChoice | null;
   outcome: Outcome | null;
 }
 
@@ -49,6 +39,7 @@ const returnErrorResult = (errorMessage: string): Result => ({
   errorMessage,
   winningChoice: null,
   outcome: null,
+  playerBestChoice: null,
 });
 
 export const calculateResult = (
@@ -63,42 +54,52 @@ export const calculateResult = (
   const playerChoiceNames = Object.keys(playerChoices) as GameChoice[];
   const playerChoicesCount = playerChoiceNames.length;
 
-  // For now we only support 1 or 2 player choices
   if (playerChoicesCount > 2) {
     return returnErrorResult("Invalid number of player choices");
   }
 
   let totalWinAmount = 0;
-  let finalOutCome: Outcome = "tie";
+  let finalOutcome: Outcome = "tie";
   let finalWinningChoice: GameChoice | null = null;
+  let finalPlayerBestChoice: GameChoice | null = null;
 
-  for (const playerChoice of playerChoiceNames) {
+  playerChoiceNames.forEach((playerChoice) => {
     const { outcome, winningChoice } = getWinningChoice(
       playerChoice,
       computerChoice,
     );
 
     if (outcome === "win") {
-      finalOutCome = "win";
+      finalOutcome = "win";
       totalWinAmount +=
         (playerChoices[playerChoice] ?? 0) * winRates[playerChoicesCount];
       finalWinningChoice = winningChoice;
-    } else if (outcome === "loss" && finalOutCome !== "win") {
-      finalOutCome = "loss";
+      finalPlayerBestChoice = playerChoice;
+    } else if (outcome === "loss" && finalOutcome !== "win") {
+      finalOutcome = "loss";
       finalWinningChoice = computerChoice;
+      finalPlayerBestChoice = playerChoice;
+    } else if (outcome === "tie" && finalOutcome === "loss") {
+      finalPlayerBestChoice = playerChoice;
     }
-  }
+  });
 
-  if (finalOutCome == "tie") {
-    // if finalOutCome is a tie(this means it no other bets won or loss), return the amount
-    totalWinAmount = playerChoices[playerChoiceNames[0]] ?? 0;
-    finalWinningChoice = null;
+  if (finalOutcome === "tie") {
+    totalWinAmount = playerChoices[computerChoice] ?? 0;
+    finalPlayerBestChoice = computerChoice;
   }
 
   return {
     errorMessage: null,
     winAmount: totalWinAmount,
-    outcome: finalOutCome,
+    outcome: finalOutcome,
     winningChoice: finalWinningChoice,
+    playerBestChoice: finalPlayerBestChoice,
   };
+};
+
+export const hasReachedMaxBetCount = (selectedChoices: {
+  [key in GameChoice]?: number;
+}): boolean => {
+  return Object.keys(selectedChoices).length >= Object.keys(winRates).length;
 };

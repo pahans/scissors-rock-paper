@@ -51,6 +51,12 @@ module.exports = {
         },
       },
     ],
+    // "prettier/prettier": [
+    //   "error",
+    //   {
+    //     printWidth: 120,
+    //   },
+    // ],
   },
   settings: {
     "import/resolver": {

@@ -1,8 +1,12 @@
 import { Dispatch, createContext } from "react";
 
-import { betSize, startingBalance, winRates } from "@/config/game-config";
+import { betSize, startingBalance } from "@/config/game-config";
 import { GameChoice, GameState } from "@/types/definitions";
-import { calculateResult, getRandomChoice } from "@/utils/game-logic";
+import {
+  calculateResult,
+  getRandomChoice,
+  hasReachedMaxBetCount,
+} from "@/utils/game-logic";
 
 export const initialState: GameState = {
   balance: startingBalance,
@@ -13,6 +17,7 @@ export const initialState: GameState = {
   gameStage: "betting",
   winningChoice: null,
   winAmount: 0,
+  playerBestChoice: null,
   outcome: null,
 };
 
@@ -26,11 +31,10 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
   switch (action.type) {
     case "PLACE_BET": {
       const choice = action.payload;
-      // Exit if max bets are reached without existing bet on choice
+      // Exit if max choice reached, allow increase bets if choice is already selected
       if (
         !state.selectedChoices[choice] &&
-        Object.keys(state.selectedChoices).length >=
-          Object.keys(winRates).length
+        hasReachedMaxBetCount(state.selectedChoices)
       ) {
         return state;
       }
@@ -59,29 +63,21 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       }
 
       const computerChoice = getRandomChoice();
+
+      const result = calculateResult(state.selectedChoices, computerChoice);
       return {
         ...state,
         computerChoice,
-        errorMessage: null,
         gameStage: "playing",
+        win: result.outcome === "win" ? state.win + 1 : state.win,
+        balance: state.balance + result.winAmount,
+        ...result,
       };
     }
     case "CALCULATE_RESULT": {
-      const { winAmount, errorMessage, winningChoice, outcome } =
-        calculateResult(
-          state.selectedChoices,
-          state.computerChoice as GameChoice,
-        );
-
       return {
         ...state,
-        win: outcome === "win" ? state.win + 1 : state.win,
-        outcome,
-        winAmount,
-        balance: state.balance + winAmount,
-        errorMessage,
         gameStage: "showWinner",
-        winningChoice,
       };
     }
     case "RESET_GAME": {

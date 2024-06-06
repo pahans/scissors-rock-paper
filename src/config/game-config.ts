@@ -6,7 +6,9 @@ export const startingBalance = 5000;
 
 export const betSize = 500;
 
-export const winRates: Record<number, number> = {
+export type WIN_RATES = Record<number, number>;
+
+export const winRates: WIN_RATES = {
   1: 14,
   2: 3,
 };

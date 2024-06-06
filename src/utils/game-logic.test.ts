@@ -45,6 +45,7 @@ describe("Game Logic", () => {
       expect(result.errorMessage).toBeNull();
       expect(result.outcome).toBe("win");
       expect(result.winningChoice).toBe("rock");
+      expect(result.playerBestChoice).toBe("rock");
     });
 
     it("handles a single bet with a tie", () => {
@@ -56,6 +57,7 @@ describe("Game Logic", () => {
       expect(result.errorMessage).toBeNull();
       expect(result.outcome).toBe("tie");
       expect(result.winningChoice).toBeNull();
+      expect(result.playerBestChoice).toBe("rock");
     });
 
     it("handles a single bet with a loss", () => {
@@ -67,6 +69,7 @@ describe("Game Logic", () => {
       expect(result.errorMessage).toBeNull();
       expect(result.outcome).toBe("loss");
       expect(result.winningChoice).toBe("paper");
+      expect(result.playerBestChoice).toBe("rock");
     });
 
     it("handles two bets with one loss and one tie", () => {
@@ -78,6 +81,7 @@ describe("Game Logic", () => {
       expect(result.errorMessage).toBeNull();
       expect(result.outcome).toBe("loss");
       expect(result.winningChoice).toBe("paper");
+      expect(result.playerBestChoice).toBe("paper");
     });
 
     it("handles two bets with one winning and one tie", () => {

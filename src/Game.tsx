@@ -9,17 +9,22 @@ import { GameChoice } from "@/types/definitions";
 import { useGameContext } from "./hooks/use-game-context";
 
 function Game() {
-  const { state } = useGameContext();
-  const { placeBet, startGame, resetGame } = useGameActions();
   const {
-    balance,
-    win,
-    selectedChoices,
-    errorMessage,
-    gameStage,
-    winningChoice,
-    winAmount,
-  } = state;
+    state: {
+      balance,
+      win,
+      selectedChoices,
+      errorMessage,
+      gameStage,
+      winningChoice,
+      winAmount,
+      outcome,
+      computerChoice,
+      playerBestChoice,
+    },
+  } = useGameContext();
+
+  const { placeBet, startGame, resetGame } = useGameActions();
 
   const totalBet = Object.values(selectedChoices).reduce(
     (sum, amount) => sum + (amount || 0),
@@ -35,11 +40,11 @@ function Game() {
         )}
         <GameStatus
           gameStage={gameStage}
-          selectedChoices={selectedChoices}
+          playerBestChoice={playerBestChoice}
           winningChoice={winningChoice}
           winningAmount={winAmount}
-          outcome={state.outcome}
-          computerChoice={state.computerChoice}
+          outcome={outcome}
+          computerChoice={computerChoice}
         />
       </div>
 
@@ -53,6 +58,7 @@ function Game() {
               betAmount={selectedChoices[choice as GameChoice] || 0}
               onSelect={() => placeBet(choice as GameChoice)}
               disabled={gameStage !== "betting"}
+              highlight={choice === playerBestChoice}
             />
           ))}
         </div>
