@@ -1,17 +1,3 @@
-export type GameStage = "betting" | "playing" | "showWinner";
-
-export type GameChoiceConfig = Record<
-  GameChoice,
-  {
-    label: string;
-    beats: string[];
-    colorClassName: string;
-  }
->;
-export type GameChoice = "rock" | "paper" | "scissors";
-
-export type Outcome = "tie" | "win" | "loss";
-
 export interface GameState {
   balance: number;
   win: number;
@@ -24,3 +10,30 @@ export interface GameState {
   outcome: Outcome | null;
   playerBestChoice: GameChoice | null;
 }
+
+export enum GameStage {
+  Betting = "betting",
+  Playing = "playing",
+  ShowWinner = "showWinner",
+}
+
+export enum GameChoice {
+  Rock = "rock",
+  Paper = "paper",
+  Scissors = "scissors",
+}
+
+export enum Outcome {
+  Tie = "tie",
+  Win = "win",
+  Loss = "loss",
+}
+
+export type GameChoiceConfig = Record<
+  GameChoice,
+  {
+    label: string;
+    beats: string[];
+    colorClassName: string;
+  }
+>;

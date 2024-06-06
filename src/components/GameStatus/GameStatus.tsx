@@ -23,14 +23,14 @@ export const GameStatus: React.FC<GameStatusProps> = ({
 }) => {
   return (
     <div className="text-center">
-      {gameStage === "betting" && <BettingStage />}
-      {gameStage === "playing" && (
+      {gameStage === GameStage.Betting && <BettingStage />}
+      {gameStage === GameStage.Playing && (
         <PlayingStage
           playerBestChoice={playerBestChoice}
           computerChoice={computerChoice}
         />
       )}
-      {gameStage === "showWinner" && outcome && (
+      {gameStage === GameStage.ShowWinner && outcome && (
         <ShowWinnerStage
           outcome={outcome}
           winningChoice={winningChoice}

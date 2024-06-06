@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 import { GameStatus } from "@/components/GameStatus";
 import { gameChoicesConfig } from "@/config/game-config";
 import { useGameActions } from "@/hooks/use-game-actions";
-import { GameChoice } from "@/types/definitions";
+import { GameChoice, GameStage } from "@/types/definitions";
 
 import { useGameContext } from "./hooks/use-game-context";
 
@@ -57,22 +57,23 @@ function Game() {
               className={gameChoicesConfig[choice as GameChoice].colorClassName}
               betAmount={selectedChoices[choice as GameChoice] || 0}
               onSelect={() => placeBet(choice as GameChoice)}
-              disabled={gameStage !== "betting"}
+              disabled={gameStage !== GameStage.Betting}
               highlight={choice === playerBestChoice}
             />
           ))}
         </div>
 
         <div className="my-4 flex w-full items-center justify-center space-x-4">
-          {(gameStage === "betting" || gameStage === "playing") && (
+          {(gameStage === GameStage.Betting ||
+            gameStage === GameStage.Playing) && (
             <Button
               onClick={startGame}
-              disabled={gameStage === "playing" || totalBet === 0}
+              disabled={gameStage === GameStage.Playing || totalBet === 0}
             >
               PLAY
             </Button>
           )}
-          {gameStage === "showWinner" && (
+          {gameStage === GameStage.ShowWinner && (
             <Button onClick={resetGame}>CLEAR</Button>
           )}
         </div>

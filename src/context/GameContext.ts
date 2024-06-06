@@ -1,7 +1,7 @@
 import { Dispatch, createContext } from "react";
 
 import { betSize, startingBalance } from "@/config/game-config";
-import { GameChoice, GameState } from "@/types/definitions";
+import { GameChoice, GameStage, GameState, Outcome } from "@/types/definitions";
 import {
   calculateResult,
   getRandomChoice,
@@ -14,7 +14,7 @@ export const initialState: GameState = {
   selectedChoices: {},
   computerChoice: null,
   errorMessage: null,
-  gameStage: "betting",
+  gameStage: GameStage.Betting,
   winningChoice: null,
   winAmount: 0,
   playerBestChoice: null,
@@ -68,8 +68,8 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       return {
         ...state,
         computerChoice,
-        gameStage: "playing",
-        win: result.outcome === "win" ? state.win + 1 : state.win,
+        gameStage: GameStage.Playing,
+        win: result.outcome === Outcome.Win ? state.win + 1 : state.win,
         balance: state.balance + result.winAmount,
         ...result,
       };
@@ -77,7 +77,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
     case "CALCULATE_RESULT": {
       return {
         ...state,
-        gameStage: "showWinner",
+        gameStage: GameStage.ShowWinner,
       };
     }
     case "RESET_GAME": {

@@ -17,13 +17,13 @@ export const getWinningChoice = (
   computerChoice: GameChoice,
 ): WinningChoiceResult => {
   if (playerChoice === computerChoice) {
-    return { outcome: "tie", winningChoice: null };
+    return { outcome: Outcome.Tie, winningChoice: null };
   }
 
   const playerChoiceConfig = gameChoicesConfig[playerChoice];
   return playerChoiceConfig.beats.includes(computerChoice)
-    ? { outcome: "win", winningChoice: playerChoice }
-    : { outcome: "loss", winningChoice: computerChoice };
+    ? { outcome: Outcome.Win, winningChoice: playerChoice }
+    : { outcome: Outcome.Loss, winningChoice: computerChoice };
 };
 
 interface Result {
@@ -59,7 +59,7 @@ export const calculateResult = (
   }
 
   let totalWinAmount = 0;
-  let finalOutcome: Outcome = "tie";
+  let finalOutcome: Outcome = Outcome.Tie;
   let finalWinningChoice: GameChoice | null = null;
   let finalPlayerBestChoice: GameChoice | null = null;
 
@@ -69,22 +69,22 @@ export const calculateResult = (
       computerChoice,
     );
 
-    if (outcome === "win") {
-      finalOutcome = "win";
+    if (outcome === Outcome.Win) {
+      finalOutcome = Outcome.Win;
       totalWinAmount +=
         (playerChoices[playerChoice] ?? 0) * winRates[playerChoicesCount];
       finalWinningChoice = winningChoice;
       finalPlayerBestChoice = playerChoice;
-    } else if (outcome === "loss" && finalOutcome !== "win") {
-      finalOutcome = "loss";
+    } else if (outcome === Outcome.Loss && finalOutcome !== Outcome.Win) {
+      finalOutcome = Outcome.Loss;
       finalWinningChoice = computerChoice;
       finalPlayerBestChoice = playerChoice;
-    } else if (outcome === "tie" && finalOutcome === "loss") {
+    } else if (outcome === Outcome.Tie && finalOutcome === Outcome.Loss) {
       finalPlayerBestChoice = playerChoice;
     }
   });
 
-  if (finalOutcome === "tie") {
+  if (finalOutcome === Outcome.Tie) {
     totalWinAmount = playerChoices[computerChoice] ?? 0;
     finalPlayerBestChoice = computerChoice;
   }

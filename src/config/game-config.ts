@@ -1,4 +1,4 @@
-import { GameChoiceConfig } from "@/types/definitions";
+import { GameChoice, GameChoiceConfig } from "@/types/definitions";
 
 export const CALCULATE_RESULT_DELAY = 3000;
 
@@ -6,7 +6,7 @@ export const startingBalance = 5000;
 
 export const betSize = 500;
 
-export type WIN_RATES = Record<number, number>;
+export type WIN_RATES = Record<string, number>;
 
 export const winRates: WIN_RATES = {
   1: 14,
@@ -16,17 +16,17 @@ export const winRates: WIN_RATES = {
 export const gameChoicesConfig: GameChoiceConfig = {
   rock: {
     label: "ROCK",
-    beats: ["scissors"],
+    beats: [GameChoice.Scissors],
     colorClassName: "bg-blue-800/25 text-blue-500 ring-blue-700",
   },
   paper: {
     label: "PAPER",
-    beats: ["rock"],
+    beats: [GameChoice.Rock],
     colorClassName: "bg-green-800/25 text-green-500 ring-green-700",
   },
   scissors: {
     label: "SCISSORS",
-    beats: ["paper"],
+    beats: [GameChoice.Paper],
     colorClassName: "bg-red-800/25 text-red-500 ring-red-700",
   },
 };

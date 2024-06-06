@@ -1,5 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react";
 
+import { GameChoice, GameStage, Outcome } from "@/types/definitions";
+
 import { GameStatus, GameStatusProps } from ".";
 
 export default {
@@ -12,8 +14,8 @@ const Template: StoryFn<GameStatusProps> = (args) => <GameStatus {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  gameStage: "betting",
-  selectedChoices: {},
+  gameStage: GameStage.Betting,
+  playerBestChoice: GameChoice.Rock,
   winningChoice: null,
   winningAmount: 0,
   outcome: null,
@@ -22,25 +24,20 @@ Default.args = {
 
 export const Playing = Template.bind({});
 Playing.args = {
-  gameStage: "playing",
-  selectedChoices: {
-    rock: 1000,
-    paper: 500,
-  },
+  gameStage: GameStage.Playing,
+  playerBestChoice: GameChoice.Rock,
   winningChoice: null,
   winningAmount: 0,
   outcome: null,
-  computerChoice: "rock",
+  computerChoice: GameChoice.Rock,
 };
 
 export const ShowWinner = Template.bind({});
 ShowWinner.args = {
-  gameStage: "showWinner",
-  selectedChoices: {
-    rock: 1000,
-  },
-  winningChoice: "rock",
+  gameStage: GameStage.ShowWinner,
+  playerBestChoice: GameChoice.Rock,
+  winningChoice: GameChoice.Rock,
   winningAmount: 7000,
-  outcome: "win",
-  computerChoice: "rock",
+  outcome: Outcome.Win,
+  computerChoice: GameChoice.Rock,
 };
