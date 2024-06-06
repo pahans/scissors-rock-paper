@@ -1,5 +1,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+[![codecov](https://codecov.io/gh/pahans/scissors-rock-paper/graph/badge.svg?token=SGVJDWAMAI)](https://codecov.io/gh/pahans/scissors-rock-paper)
+
 ## Getting Started
 
 This project has been tested with Node.js version 20.
