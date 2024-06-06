@@ -10,7 +10,7 @@ module.exports = {
     "plugin:jsx-a11y/strict",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -30,6 +30,7 @@ module.exports = {
         allowSeparatedGroups: true,
       },
     ],
+    '@typescript-eslint/consistent-type-imports': 'error',
     "import/no-named-as-default": 0,
     "import/order": [
       "error",
@@ -51,12 +52,12 @@ module.exports = {
         },
       },
     ],
-    // "prettier/prettier": [
-    //   "error",
-    //   {
-    //     printWidth: 120,
-    //   },
-    // ],
+    "prettier/prettier": [
+      "error",
+      {
+        printWidth: 120,
+      },
+    ],
   },
   settings: {
     "import/resolver": {

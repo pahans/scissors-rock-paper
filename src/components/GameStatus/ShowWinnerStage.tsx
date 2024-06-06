@@ -1,5 +1,4 @@
-import { type GameChoice } from "@/types/definitions";
-import { Outcome } from "@/types/definitions";
+import { type GameChoice, Outcome } from "@/types/definitions";
 import { cn } from "@/utils";
 
 export const ShowWinnerStage: React.FC<{

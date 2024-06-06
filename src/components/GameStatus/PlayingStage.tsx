@@ -1,4 +1,4 @@
-import { GameChoice } from "@/types/definitions";
+import type { GameChoice } from "@/types/definitions";
 
 export const PlayingStage: React.FC<{
   playerBestChoice: GameChoice | null;

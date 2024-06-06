@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 
-import { Balance, BalanceProps } from "./Balance";
+import type { BalanceProps } from "./Balance";
+import { Balance } from "./Balance";
 
 describe("Balance Component", () => {
   const setup = (props: Partial<BalanceProps> = {}) => {

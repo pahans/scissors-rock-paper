@@ -3,11 +3,7 @@ import { describe, expect, it } from "vitest";
 import { gameChoicesConfig } from "@/config/game-config";
 import { GameChoice, Outcome } from "@/types/definitions";
 
-import {
-  calculateResult,
-  getRandomChoice,
-  getWinningChoice,
-} from "./game-logic";
+import { calculateResult, getRandomChoice, getWinningChoice } from "./game-logic";
 
 describe("Game Logic", () => {
   describe("getRandomChoice", () => {

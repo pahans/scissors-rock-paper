@@ -1,4 +1,5 @@
-import { GameChoice, GameStage, Outcome } from "@/types/definitions";
+import type { GameChoice, Outcome } from "@/types/definitions";
+import { GameStage } from "@/types/definitions";
 
 import { BettingStage } from "./BettingStage";
 import { PlayingStage } from "./PlayingStage";
@@ -25,17 +26,10 @@ export const GameStatus: React.FC<GameStatusProps> = ({
     <div className="text-center">
       {gameStage === GameStage.Betting && <BettingStage />}
       {gameStage === GameStage.Playing && (
-        <PlayingStage
-          playerBestChoice={playerBestChoice}
-          computerChoice={computerChoice}
-        />
+        <PlayingStage playerBestChoice={playerBestChoice} computerChoice={computerChoice} />
       )}
       {gameStage === GameStage.ShowWinner && outcome && (
-        <ShowWinnerStage
-          outcome={outcome}
-          winningChoice={winningChoice}
-          winningAmount={winningAmount}
-        />
+        <ShowWinnerStage outcome={outcome} winningChoice={winningChoice} winningAmount={winningAmount} />
       )}
     </div>
   );

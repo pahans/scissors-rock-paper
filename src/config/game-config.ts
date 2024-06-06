@@ -1,4 +1,5 @@
-import { GameChoice, GameChoiceConfig } from "@/types/definitions";
+import type { GameChoiceConfig } from "@/types/definitions";
+import { GameChoice } from "@/types/definitions";
 
 export const CALCULATE_RESULT_DELAY = 3000;
 

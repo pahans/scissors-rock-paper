@@ -1,5 +1,6 @@
 import { gameChoicesConfig, winRates } from "@/config/game-config";
-import { GameChoice, Outcome } from "@/types/definitions";
+import type { GameChoice } from "@/types/definitions";
+import { Outcome } from "@/types/definitions";
 
 export const getRandomChoice = (): GameChoice => {
   const choices = Object.keys(gameChoicesConfig) as GameChoice[];
@@ -12,10 +13,7 @@ interface WinningChoiceResult {
   winningChoice: GameChoice | null;
 }
 
-export const getWinningChoice = (
-  playerChoice: GameChoice,
-  computerChoice: GameChoice,
-): WinningChoiceResult => {
+export const getWinningChoice = (playerChoice: GameChoice, computerChoice: GameChoice): WinningChoiceResult => {
   if (playerChoice === computerChoice) {
     return { outcome: Outcome.Tie, winningChoice: null };
   }
@@ -64,15 +62,11 @@ export const calculateResult = (
   let finalPlayerBestChoice: GameChoice | null = null;
 
   playerChoiceNames.forEach((playerChoice) => {
-    const { outcome, winningChoice } = getWinningChoice(
-      playerChoice,
-      computerChoice,
-    );
+    const { outcome, winningChoice } = getWinningChoice(playerChoice, computerChoice);
 
     if (outcome === Outcome.Win) {
       finalOutcome = Outcome.Win;
-      totalWinAmount +=
-        (playerChoices[playerChoice] ?? 0) * winRates[playerChoicesCount];
+      totalWinAmount += (playerChoices[playerChoice] ?? 0) * winRates[playerChoicesCount];
       finalWinningChoice = winningChoice;
       finalPlayerBestChoice = playerChoice;
     } else if (outcome === Outcome.Loss && finalOutcome !== Outcome.Win) {

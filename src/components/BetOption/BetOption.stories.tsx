@@ -1,17 +1,16 @@
-import { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import { GameChoice } from "@/types/definitions";
 
-import { BetOption, BetOptionProps } from "./BetOption";
+import type { BetOptionProps } from "./BetOption";
+import { BetOption } from "./BetOption";
 
 export default {
   title: "Components/BetOption",
   component: BetOption,
 } as Meta;
 
-const Template: StoryFn<BetOptionProps> = (args: BetOptionProps) => (
-  <BetOption {...args} />
-);
+const Template: StoryFn<BetOptionProps> = (args: BetOptionProps) => <BetOption {...args} />;
 
 export const Rock = Template.bind({});
 Rock.args = {

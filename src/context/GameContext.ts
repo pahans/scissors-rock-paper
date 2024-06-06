@@ -1,12 +1,10 @@
-import { Dispatch, createContext } from "react";
+import type { Dispatch } from "react";
+import { createContext } from "react";
 
 import { betSize, startingBalance } from "@/config/game-config";
-import { GameChoice, GameStage, GameState, Outcome } from "@/types/definitions";
-import {
-  calculateResult,
-  getRandomChoice,
-  hasReachedMaxBetCount,
-} from "@/utils/game-logic";
+import type { GameChoice, GameState } from "@/types/definitions";
+import { GameStage, Outcome } from "@/types/definitions";
+import { calculateResult, getRandomChoice, hasReachedMaxBetCount } from "@/utils/game-logic";
 
 export const initialState: GameState = {
   balance: startingBalance,
@@ -32,10 +30,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
     case "PLACE_BET": {
       const choice = action.payload;
       // Exit if max choice reached, allow increase bets if choice is already selected
-      if (
-        !state.selectedChoices[choice] &&
-        hasReachedMaxBetCount(state.selectedChoices)
-      ) {
+      if (!state.selectedChoices[choice] && hasReachedMaxBetCount(state.selectedChoices)) {
         return state;
       }
 
@@ -92,6 +87,4 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
   }
 };
 
-export const GameContext = createContext<
-  { state: GameState; dispatch: Dispatch<Action> } | undefined
->(undefined);
+export const GameContext = createContext<{ state: GameState; dispatch: Dispatch<Action> } | undefined>(undefined);

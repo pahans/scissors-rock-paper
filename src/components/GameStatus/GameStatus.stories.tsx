@@ -1,8 +1,9 @@
-import { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import { GameChoice, GameStage, Outcome } from "@/types/definitions";
 
-import { GameStatus, GameStatusProps } from ".";
+import type { GameStatusProps } from ".";
+import { GameStatus } from ".";
 
 export default {
   title: "Components/GameStatus",
