@@ -19,7 +19,7 @@ export const initialState: GameState = {
   outcome: null,
 };
 
-type Action =
+export type Action =
   | { type: "PLACE_BET"; payload: GameChoice }
   | { type: "START_GAME" }
   | { type: "CALCULATE_RESULT" }
@@ -46,7 +46,8 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       };
     }
     case "START_GAME": {
-      if (Object.keys(state.selectedChoices).length === 0) return state;
+      if (Object.keys(state.selectedChoices).length === 0)
+        return { ...state, errorMessage: "Cannot start the game without any bets" };
 
       const computerChoice = getRandomChoice();
       const result = calculateResult(state.selectedChoices, computerChoice);

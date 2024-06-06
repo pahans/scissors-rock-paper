@@ -30,6 +30,7 @@ export const BetOption: React.FC<BetOptionProps> = ({
           "ring-6": highlight,
         },
       )}
+      data-testid="bet-option"
       disabled={disabled}
       onClick={() => onSelect(choice)}
     >
