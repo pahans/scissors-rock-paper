@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import type { BalanceProps } from "./Balance";
 import { Balance } from "./Balance";
@@ -14,7 +14,7 @@ describe("Balance Component", () => {
     return render(<Balance {...defaultProps} {...props} />);
   };
 
-  test("renders Balance component with props", () => {
+  it("renders Balance component with props", () => {
     setup();
 
     expect(screen.getByText("BALANCE:")).toBeInTheDocument();
