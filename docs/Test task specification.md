@@ -46,3 +46,5 @@ We pay attention to everything mentioned for middle. Additionally we expect code
     - Rock - player wins 3000 because Paper wins and Rock is tie
     - Paper - player wins nothing because Paper is tie and Rock loses
     - Scissors - player wins 1500 because Paper loses and Rock wins
+-  If Player places bets on rock and paper, computer choice is Rock, so Rock bet is lost, and Paper bet wins. We show computer choice and only winning bet in final result 
+    - If it's a rock and scissors, then we show rock vs rock since tie is better result than lose
