@@ -33,33 +33,24 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       if (!state.selectedChoices[choice] && hasReachedMaxBetCount(state.selectedChoices)) {
         return state;
       }
-
       if (state.balance < betSize) {
-        return {
-          ...state,
-          errorMessage: "Insufficient balance.",
-        };
+        return { ...state, errorMessage: "Insufficient balance." };
       }
-      // Deduct bet from balance and add to selected choices
       return {
         ...state,
         balance: state.balance - betSize,
         selectedChoices: {
           ...state.selectedChoices,
-          [choice]: (state.selectedChoices[choice] || 0) + betSize,
+          [choice]: (state.selectedChoices[choice] ?? 0) + betSize,
         },
       };
     }
     case "START_GAME": {
-      if (Object.keys(state.selectedChoices).length === 0) {
-        return {
-          ...state,
-        };
-      }
+      if (Object.keys(state.selectedChoices).length === 0) return state;
 
       const computerChoice = getRandomChoice();
-
       const result = calculateResult(state.selectedChoices, computerChoice);
+
       return {
         ...state,
         computerChoice,
@@ -70,17 +61,10 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       };
     }
     case "CALCULATE_RESULT": {
-      return {
-        ...state,
-        gameStage: GameStage.ShowWinner,
-      };
+      return { ...state, gameStage: GameStage.ShowWinner };
     }
     case "RESET_GAME": {
-      return {
-        ...initialState,
-        balance: state.balance,
-        win: state.win,
-      };
+      return { ...initialState, balance: state.balance, win: state.win };
     }
     default:
       return state;
