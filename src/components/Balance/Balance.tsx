@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { LanguageStrings } from "@/lang";
+
 import { Stat } from "./Stat";
 
 export interface BalanceProps {
@@ -10,14 +12,17 @@ export interface BalanceProps {
 
 export const Balance: React.FC<BalanceProps> = ({ balance, bet, win }) => {
   const stats = [
-    { label: "BALANCE", value: balance },
-    { label: "BET", value: bet },
-    { label: "WIN", value: win },
+    {
+      label: LanguageStrings.balance,
+      value: balance,
+    },
+    { label: LanguageStrings.bet, value: bet },
+    { label: LanguageStrings.win, value: win },
   ];
 
   return (
     <div className="bg-gray-900 p-1">
-      <div className="container mx-auto flex max-w-lg justify-between px-4">
+      <div className="container mx-auto flex max-w-lg justify-between px-4 uppercase">
         {stats.map(({ label, value }) => (
           <Stat key={label} label={label} value={value} />
         ))}

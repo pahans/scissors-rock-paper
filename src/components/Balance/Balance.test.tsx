@@ -17,11 +17,11 @@ describe("Balance Component", () => {
   it("renders Balance component with props", () => {
     setup();
 
-    expect(screen.getByText("BALANCE:")).toBeInTheDocument();
+    expect(screen.getByText(/BALANCE:/i)).toBeInTheDocument();
     expect(screen.getByText("5000")).toBeInTheDocument();
-    expect(screen.getByText("BET:")).toBeInTheDocument();
+    expect(screen.getByText(/BET:/i)).toBeInTheDocument();
     expect(screen.getByText("1000")).toBeInTheDocument();
-    expect(screen.getByText("WIN:")).toBeInTheDocument();
+    expect(screen.getByText(/WIN:/i)).toBeInTheDocument();
     expect(screen.getByText("1500")).toBeInTheDocument();
   });
 });

@@ -1,6 +1,7 @@
 import type { MockedFunction } from "vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { LanguageStrings } from "@/lang";
 import type { GameState } from "@/types/definitions";
 import { GameChoice, GameStage, Outcome } from "@/types/definitions";
 import { calculateResult, getRandomChoice, hasReachedMaxBetCount } from "@/utils/game-logic";
@@ -54,7 +55,7 @@ describe("gameReducer", () => {
     const action: Action = { type: "PLACE_BET", payload: GameChoice.Rock };
     const state = gameReducer(lowBalanceState, action);
 
-    expect(state.errorMessage).toBe("Insufficient balance.");
+    expect(state.errorMessage).toBe(LanguageStrings.insufficientBalance);
     expect(state.selectedChoices).toEqual({});
     expect(state.balance).toBe(400);
   });
@@ -63,7 +64,7 @@ describe("gameReducer", () => {
     const action: Action = { type: "START_GAME" };
     const state = gameReducer(initialState, action);
 
-    expect(state.errorMessage).toBe("Cannot start the game without any bets");
+    expect(state.errorMessage).toBe(LanguageStrings.cannotStartWithoutBets);
   });
 
   it("should handle START_GAME action with valid bets", () => {

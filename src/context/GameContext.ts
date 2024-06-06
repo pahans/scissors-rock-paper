@@ -2,6 +2,7 @@ import type { Dispatch } from "react";
 import { createContext } from "react";
 
 import { betSize, startingBalance } from "@/config/game-config";
+import { LanguageStrings } from "@/lang";
 import type { GameChoice, GameState } from "@/types/definitions";
 import { GameStage, Outcome } from "@/types/definitions";
 import { calculateResult, getRandomChoice, hasReachedMaxBetCount } from "@/utils/game-logic";
@@ -34,8 +35,9 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
         return state;
       }
       if (state.balance < betSize) {
-        return { ...state, errorMessage: "Insufficient balance." };
+        return { ...state, errorMessage: LanguageStrings.insufficientBalance };
       }
+
       return {
         ...state,
         balance: state.balance - betSize,
@@ -47,7 +49,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
     }
     case "START_GAME": {
       if (Object.keys(state.selectedChoices).length === 0)
-        return { ...state, errorMessage: "Cannot start the game without any bets" };
+        return { ...state, errorMessage: LanguageStrings.cannotStartWithoutBets };
 
       const computerChoice = getRandomChoice();
       const result = calculateResult(state.selectedChoices, computerChoice);
