@@ -10,13 +10,15 @@ export const ShowWinnerStage: React.FC<{
     {outcome === Outcome.Win && (
       <>
         <h3 className="text-green-600">{winningChoice} won</h3>
-        <div>You won {winningAmount}</div>
+        <div>
+          <span className="px-2 text-gold-500">You win</span> {winningAmount}
+        </div>
       </>
     )}
     {outcome === Outcome.Loss && (
       <>
         <h3 className="text-red-600">{winningChoice} won</h3>
-        <div>You lost</div>
+        <div>You lose</div>
       </>
     )}
     {outcome == Outcome.Tie && <h3>Game Tied, Bet Returned</h3>}
