@@ -1,15 +1,12 @@
-import { LanguageStrings } from "@/lang";
 import type { GameChoice } from "@/types/definitions";
 
 export const PlayingStage: React.FC<{
   playerBestChoice: GameChoice | null;
   computerChoice: GameChoice | null;
 }> = ({ playerBestChoice, computerChoice }) => (
-  <h3 className="text-5xl uppercase text-white">
-    <span className="px-8 text-lg">{LanguageStrings.computerChoice}</span>
-    {computerChoice}
-    <span className="px-8 text-xl text-gold-500">vs</span>
-    {playerBestChoice}
-    <span className="px-8 text-lg">{LanguageStrings.playerChoice}</span>
+  <h3 className="text-lg uppercase text-white md:text-5xl">
+    <span>{computerChoice}</span>
+    <span className="px-2 text-xs font-semibold text-gold-500 md:px-8 md:text-3xl">vs</span>
+    <span>{playerBestChoice}</span>
   </h3>
 );

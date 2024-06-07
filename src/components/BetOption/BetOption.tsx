@@ -33,7 +33,7 @@ export const BetOption: React.FC<BetOptionProps> = ({
       onClick={() => onSelect(choice)}
     >
       <BetAmount betAmount={betAmount} />
-      <span className="text-3xl">{choice.toUpperCase()}</span>
+      <span className="text-sm md:text-3xl">{choice.toUpperCase()}</span>
     </button>
   );
 };
