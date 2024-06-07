@@ -9,7 +9,7 @@ import { GameStage } from "@/types/definitions";
 
 import { useGameContext } from "./hooks/use-game-context";
 
-function Game() {
+const Game: React.FC = () => {
   const {
     state: {
       balance,
@@ -70,6 +70,6 @@ function Game() {
       </div>
     </div>
   );
-}
+};
 
 export default Game;

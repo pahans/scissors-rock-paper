@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useReducer } from "react";
 
 import { GameContext, gameReducer, initialState } from "./GameContext";

@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { LanguageStrings } from "@/lang";
 
 import { Stat } from "./Stat";
