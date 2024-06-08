@@ -26,6 +26,6 @@ export const ShowWinnerStage: React.FC<{
         <div>{LanguageStrings.youLose}</div>
       </>
     )}
-    {outcome == Outcome.Tie && <h3>{LanguageStrings.tiedBetReturned}</h3>}
+    {outcome === Outcome.Tie && <h3>{LanguageStrings.tiedBetReturned}</h3>}
   </div>
 );
