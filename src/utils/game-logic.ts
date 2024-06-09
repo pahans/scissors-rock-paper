@@ -61,9 +61,19 @@ export const calculateResult = (
   let finalWinningChoice: GameChoice | null = null;
   let finalPlayerBestChoice: GameChoice | null = null;
 
+  /**
+   * Loop through player choices and find the outcome
+   * Currently only tested for 2 player choices
+   * But it can be extended to support more player choices
+   * This is a simplified version for the current game
+   */
   playerChoiceNames.forEach((playerChoice) => {
     const { outcome, winningChoice } = getWinningChoice(playerChoice, computerChoice);
 
+    /**
+     * Currently, we only have one computer choice, so we can only have one winning choice.
+     * The totalWinAmount accumulation is written to support multiple computer choices in the future.
+     */
     if (outcome === Outcome.Win) {
       finalOutcome = Outcome.Win;
       totalWinAmount += (playerChoices[playerChoice] ?? 0) * winRates[playerChoicesCount];
