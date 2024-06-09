@@ -40,7 +40,23 @@ You can see this project live at [https://scissors-rock-paper.vercel.app/](https
    pnpm run test:ui
    ```
 
-## Game Configurations
+## Conventions
+- **File Names**: File names should be in kebab-case, except for component and class files.
+- **Components**: Separate components into presentational and container components.
+- **Formatting**: Formatting guidelines (such as import order and double quotes) are enforced using ESLint.
+
+## Technology Stack
+- **React**: For building the user interface.
+- **Tailwind CSS**: For styling the application.
+- **Vitest**: For unit testing.
+- **React Testing Library**: For testing React components.
+- **React Storybook**: For developing and testing UI components in isolation.
+- **Vite**: For fast and efficient development and build processes.
+- **ESLint & Prettier**: For code linting and formatting.
+- **GitHub Actions**: For continuous integration and deployment.
+- **Codecov**: For code coverage reporting.
+
+## Some Scenarios of Addressing Changing Requirements / Game Configurations
 
 Configuration file: `src/config/game-config.ts`
 
