@@ -41,7 +41,6 @@ You can see this project live at [https://scissors-rock-paper.vercel.app/](https
    ```
 
 ## Conventions
-## Conventions
 - **File Names**: File names should be in kebab-case, except for component and class files.
 - **Components**: Separate components into presentational and container components.
 - **Formatting**: Formatting guidelines (such as import order and double quotes) are enforced using ESLint.
@@ -65,7 +64,6 @@ Configuration file: `src/config/game-config.ts`
 - **Adding More Choices:**
   - Add new entries and define winning criteria under `gameChoicesConfig`, and update `winRates`.
   - Update `calculateResult` and its tests to accommodate new game logic.
-  - The totalWinAmount accumulation is written to support multiple computer choices in the future.
 
 - **Changing Starting Balance:**
   - Update the `startingBalance` value.
